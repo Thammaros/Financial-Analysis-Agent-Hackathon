@@ -1,0 +1,23 @@
+#!/bin/bash
+#SBATCH -p gpu	              # Specify partition [Compute/Memory/GPU]
+#SBATCH -N 1 -c 64            # Specify number of nodes and processors per task
+#SBATCH --gpus=4              # Specify the number of GPUs
+#SBATCH --ntasks-per-node=1	  # Specify tasks per node
+#SBATCH --mem=500G
+#SBATCH -t 24:00:00			# Specify maximum time limit (hour: minute: second)
+#SBATCH -A ai901505			# Specify project name
+#SBATCH -J Inference        # Specify job name
+#SBATCH --output=./logs_inference.out
+module restore
+module load Mamba
+module load cuda
+
+conda activate /project/ai901505-ai0005/earth/py312
+
+unset XDG_RUNTIME_DIR
+if [ "$SLURM_JOBTMP" != "" ]; then
+    export XDG_RUNTIME_DIR=$SLURM_JOBTMP
+fi
+
+export HF_HOME=/project/ai901505-ai0005/earth/cache
+/project/ai901505-ai0005/earth/py312/bin/python3 infer_dp.py
