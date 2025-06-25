@@ -98,7 +98,7 @@ Only one of the following values is allowed per sample:
   * 501375 – สุรพจน์
   * 501560 – โสรัจ
   * 500988 – เมธาวิน
-  * 500628 – เตชะ
+  * 500628 – เดชะ
   * 500129 – คีตกภัทร
 
 ---
